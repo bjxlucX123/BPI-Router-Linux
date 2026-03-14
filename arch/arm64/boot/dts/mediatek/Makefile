@@ -50,7 +50,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += mt7987a-bananapi-bpi-r4-lite-emmc.dtbo
 dtb-$(CONFIG_ARCH_MEDIATEK) += mt7987a-bananapi-bpi-r4-lite-nand.dtbo
 dtb-$(CONFIG_ARCH_MEDIATEK) += mt7987a-bananapi-bpi-r4-lite-nor.dtbo
 dtb-$(CONFIG_ARCH_MEDIATEK) += mt7987a-bananapi-bpi-r4-lite.dtb
-mt7987a-bananapi-bpi-r4-lite-emmc-nand-dtbs := \
+dtbs := \
 	mt7987a-bananapi-bpi-r4-lite.dtb \
 	mt7987a-bananapi-bpi-r4-lite-emmc.dtbo \
 	mt7987a-bananapi-bpi-r4-lite-nand.dtbo
@@ -78,7 +78,8 @@ mt7987a-bananapi-bpi-r4-lite-sd-nand-2pci1lane-dtbs := \
 	mt7987a-bananapi-bpi-r4-lite-sd-nand.dtb \
 	mt7987a-bananapi-bpi-r4-lite-2pcie-1L.dtbo
 dtb-$(CONFIG_ARCH_MEDIATEK) += mt7987a-bananapi-bpi-r4-lite-sd-nand-2pci1lane.dtb
-
+dtb-$(CONFIG_ARCH_MEDIATEK) += mt7987a-rfb.dtb
+dtb-$(CONFIG_ARCH_MEDIATEK) += mt7987a-rfb-spim-nand-rfb.dtbo
 dtb-$(CONFIG_ARCH_MEDIATEK) += mt7988a-bananapi-bpi-r4.dtb
 dtb-$(CONFIG_ARCH_MEDIATEK) += mt7988a-bananapi-bpi-r4-2g5.dtb
 dtb-$(CONFIG_ARCH_MEDIATEK) += mt7988a-bananapi-bpi-r4-emmc.dtbo
@@ -217,6 +218,7 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += mt8516-pumpkin.dtb
 DTC_FLAGS_mt7986a-bananapi-bpi-r3 := -@
 DTC_FLAGS_mt7986a-bananapi-bpi-r3-mini := -@
 DTC_FLAGS_mt7987a-bananapi-bpi-r4-lite := -@
+DTC_FLAGS_mt7987a-rfb := -@
 DTC_FLAGS_mt7988a-bananapi-bpi-r4 := -@
 DTC_FLAGS_mt7988a-bananapi-bpi-r4-2g5 := -@
 DTC_FLAGS_mt7988a-bananapi-bpi-r4-pro-4e := -@
