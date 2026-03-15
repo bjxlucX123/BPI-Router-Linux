@@ -2086,6 +2086,10 @@ struct phylink *phylink_create(struct phylink_config *config,
 			       pl->config->lpi_capabilities &&
 			       !phy_interface_empty(pl->config->lpi_interfaces);
 
+	dev_info(pl->config->dev,
+		 "phylink: %s: mac_supports_eee_ops=%d, lpi_capabilities=0x%02x, mac_supports_eee=%d\n",
+		 __func__, pl->mac_supports_eee_ops, pl->config->lpi_capabilities, pl->mac_supports_eee);
+
 	/* Set the default EEE configuration */
 	pl->eee_cfg.eee_enabled = pl->config->eee_enabled_default;
 	pl->eee_cfg.tx_lpi_enabled = pl->eee_cfg.eee_enabled;
@@ -3530,7 +3534,7 @@ int phylink_ethtool_get_eee(struct phylink *pl, struct ethtool_keee *eee)
 	int ret = -EOPNOTSUPP;
 
 	ASSERT_RTNL();
-
+	pl->mac_supports_eee = 1;
 	if (pl->mac_supports_eee_ops && !pl->mac_supports_eee)
 		return ret;
 
@@ -3558,7 +3562,7 @@ int phylink_ethtool_set_eee(struct phylink *pl, struct ethtool_keee *eee)
 
 	ASSERT_RTNL();
 
-	phylink_dbg(pl, "mac %s phylink EEE%s, adv %*pbl, LPI%s timer %uus\n",
+	phylink_info(pl, "mac %s phylink EEE%s, adv %*pbl, LPI%s timer %uus\n",
 		    mac_eee ? "supports" : "does not support",
 		    eee->eee_enabled ? ", enabled" : "",
 		    __ETHTOOL_LINK_MODE_MASK_NBITS, eee->advertised,

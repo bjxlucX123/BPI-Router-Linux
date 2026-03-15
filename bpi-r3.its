@@ -78,7 +78,7 @@
 		};*/
 	};
 	configurations {
-		default = "conf-sd";
+		default = "conf-emmc-mini";
 		conf-sd {
 			description = "Boot Linux kernel with SD FDT blob";
 			kernel = "kernel-1";

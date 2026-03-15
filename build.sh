@@ -79,6 +79,14 @@ case $board in
 			DTSI=arch/arm64/boot/dts/mediatek/mt7987a.dtsi
 		fi
 		;;
+	"mt7987a-rfb")
+		baseboard="bpi-r4"
+		ARCH=arm64
+		CONFIGPATH=arch/$ARCH/configs
+		DEFCONFIG=$CONFIGPATH/mt7987a_rfb_defconfig
+		DTS=arch/arm64/boot/dts/mediatek/mt7987a-rfb.dts
+		DTSI=arch/arm64/boot/dts/mediatek/mt7987a.dtsi
+		;;
 	*) #bpir2
 		ARCH=arm
 		CONFIGPATH=arch/$ARCH/configs

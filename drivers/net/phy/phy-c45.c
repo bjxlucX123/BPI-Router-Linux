@@ -687,8 +687,15 @@ static int genphy_c45_write_eee_adv(struct phy_device *phydev,
 {
 	int val, changed = 0;
 
+	phydev_info(phydev, "%s: supported_eee=%*pb adv=%*pb\n",
+		   __func__,
+		   __ETHTOOL_LINK_MODE_MASK_NBITS, phydev->supported_eee,
+		   __ETHTOOL_LINK_MODE_MASK_NBITS, adv);
+
 	if (linkmode_intersects(phydev->supported_eee, PHY_EEE_CAP1_FEATURES)) {
+		phydev_info(phydev, "%s: entering CAP1 branch\n", __func__);
 		val = linkmode_to_mii_eee_cap1_t(adv);
+		phydev_info(phydev, "%s: CAP1 EEE_ADV val=0x%04x\n", __func__, val);
 
 		/* IEEE 802.3-2018 45.2.7.13 EEE advertisement 1
 		 * (Register 7.60)
@@ -706,7 +713,9 @@ static int genphy_c45_write_eee_adv(struct phy_device *phydev,
 	}
 
 	if (linkmode_intersects(phydev->supported_eee, PHY_EEE_CAP2_FEATURES)) {
+		phydev_info(phydev, "%s: entering CAP2 branch\n", __func__);
 		val = linkmode_to_mii_eee_cap2_t(adv);
+		phydev_info(phydev, "%s: CAP2 EEE_ADV2 val=0x%04x\n", __func__, val);
 
 		/* IEEE 802.3-2022 45.2.7.16 EEE advertisement 2
 		 * (Register 7.62)
@@ -723,6 +732,7 @@ static int genphy_c45_write_eee_adv(struct phy_device *phydev,
 
 	if (linkmode_test_bit(ETHTOOL_LINK_MODE_10baseT1L_Full_BIT,
 			      phydev->supported_eee)) {
+		phydev_info(phydev, "%s: entering 10baseT1L branch\n", __func__);
 		val = linkmode_adv_to_mii_10base_t1_t(adv);
 		/* IEEE 802.3cg-2019 45.2.7.25 10BASE-T1 AN control register
 		 * (Register 7.526)
@@ -1049,6 +1059,7 @@ int genphy_c45_pma_read_ext_abilities(struct phy_device *phydev)
 		linkmode_mod_bit(ETHTOOL_LINK_MODE_5000baseT_Full_BIT,
 				 phydev->supported,
 				 val & MDIO_PMA_NG_EXTABLE_5GBT);
+		phydev_info(phydev, "%s: PMA NG_EXTABLE=0x%04x\n", __func__, val & MDIO_PMA_NG_EXTABLE_2_5GBT);
 	}
 
 	if (val & MDIO_PMA_EXTABLE_BT1) {
@@ -1480,6 +1491,7 @@ int genphy_c45_eee_is_active(struct phy_device *phydev, unsigned long *lp)
 	__ETHTOOL_DECLARE_LINK_MODE_MASK(common);
 	int ret;
 
+	phydev_info(phydev, "%s: eee_enabled=%d\n", __func__, phydev->eee_cfg.eee_enabled);
 	if (!phydev->eee_cfg.eee_enabled)
 		return 0;
 

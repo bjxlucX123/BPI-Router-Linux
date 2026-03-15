@@ -1911,9 +1911,11 @@ static int ethtool_get_eee(struct net_device *dev, char __user *useraddr)
 	struct ethtool_eee eee;
 	int rc;
 
+	pr_info("ethtool_get_eee called\n");
 	if (!dev->ethtool_ops->get_eee)
 		return -EOPNOTSUPP;
 
+	pr_info("ethtool_get_eee supported\n");
 	memset(&keee, 0, sizeof(keee));
 	rc = dev->ethtool_ops->get_eee(dev, &keee);
 	if (rc)

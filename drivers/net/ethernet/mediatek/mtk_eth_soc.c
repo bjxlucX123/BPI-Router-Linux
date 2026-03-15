@@ -5185,14 +5185,18 @@ static int mtk_set_pauseparam(struct net_device *dev, struct ethtool_pauseparam 
 static int mtk_get_eee(struct net_device *dev, struct ethtool_keee *eee)
 {
 	struct mtk_mac *mac = netdev_priv(dev);
+	struct mtk_eth *eth = mac->hw;
 
+	dev_info(eth->dev, "Get EEE settings\n");
 	return phylink_ethtool_get_eee(mac->phylink, eee);
 }
 
 static int mtk_set_eee(struct net_device *dev, struct ethtool_keee *eee)
 {
 	struct mtk_mac *mac = netdev_priv(dev);
+	struct mtk_eth *eth = mac->hw;
 
+	dev_info(eth->dev, "Set EEE settings\n");
 	return phylink_ethtool_set_eee(mac->phylink, eee);
 }
 
@@ -5824,7 +5828,11 @@ no_pcs:
 	eth->netdev[id]->vlan_features = eth->soc->hw_features &
 		~NETIF_F_HW_VLAN_CTAG_TX;
 	eth->netdev[id]->features |= eth->soc->hw_features;
+	dev_info(eth->dev, "MAC%d features: 0x%llx\n", id, eth->netdev[id]->features);
+
 	eth->netdev[id]->ethtool_ops = &mtk_ethtool_ops;
+	dev_info(eth->dev, "ethtool features get_eee: %p, set_eee: %p\n",
+		 mtk_get_eee, mtk_set_eee);
 
 	eth->netdev[id]->irq = eth->irq_fe[MTK_FE_IRQ_SHARED];
 	eth->netdev[id]->dev.of_node = np;
